@@ -3,7 +3,12 @@
 En aquest document pretenc descriure els passos per crear una DLL amb API exportable opaca en Visual Studio. El projecte estarà fet en C++ i constarà d'una única classe amb un únic mètode.
 
 ## Descripció del projecte
-Aquí posaré una petita descripció del que vol dir API exportable opaca i la millora que aporta els fets de ser eportable i opaca.
+Aquí posaré una petita descripció del que vol dir API exportable opaca i la millora que aporta els fets de ser exportable i opaca.
+
+Compatibilitat binària (ABI): la representació de les classes C++ pot variar entre compiladors i versions
+Encapsulació: els usuaris no coneixen ni depenen de la implementació interna
+Compatibilitat entre llenguatges: una API C és fàcil d'utilitzar des de C, C#, Python(ctypes), Rust, etc...
+Evolució de la biblioteca: actualització / modificació de la llibreria privada sense canviar la interfície pública
 
 ## 1: Creació del projecte
 Obrir Visual Studio, seleccionar la creació d'un projecte Dinamic-Link Library (DLL) en C++ per a Windows, indicar el nom del projecte i crear:
@@ -16,9 +21,9 @@ Obrir Visual Studio, seleccionar la creació d'un projecte Dinamic-Link Library 
 ## 2: Estructurar el projecte
 Per facilitar la identificació dels components del projecte és sempre una bona pràctica estructurar el projecte de manera adequada. Una estructura correcta per un projecte de dll amb api opaca és situar els arxius de capçalera visibles pel client de la dll al directori "include" i els arxius amb la lògica al directori "src". Al seu torn, la lògica s'hauria d'organitzar en subdirectoris per a cada component. D'entrada el directori "src" tindrà dos subdirectoris: "src/api" contindrà el wrapper de tota la funcionalitat exportada, i "src/core" on hi haurà la classe principal. L'estructura de directoris per al projecte serà la següent:
 
-- arrel/include
-- arrel/src/api
-- arrel/src/core
+- arrel/include (directori visible pel client)
+- arrel/src/api (enllaç entre les classes de la llibreria i l'api en C)
+- arrel/src/core (implementació privada de la llibreria)
 
 ## 3: Crear l'arbre de directoris fisics
 Des de l'explorador d'arxius o des de la vista **Folder view** cal crear els directoris definits a l'estructura de directoris del projecte
@@ -44,9 +49,16 @@ EL precompilador de C++ ha de conèixer la macro d'exportació del projecte, per
 
 <p align="center" width="100%"><img width="800" height="546" alt="captura" src="https://github.com/user-attachments/assets/25569fc8-716d-41cc-b02b-689a42f92e88" /></p>
 
-## 7 Configurar els precompiled headers (pch)
-En aquest projecte no utilitzo pch. En cas que s'hagin creat per defecte durant la creació inicial del projecte elimino pch.h, pch.cpp i framework.h de la solució i després els elimino del disc. Des de Project/Properties/C++/Precompiled headers al camp __Precompiled Header__ seleccio l'opció __Not Using Precompiled Headers__. FInalment comprovo que cap arxiu intenta incloure pch.h.
+## 7: Configurar els precompiled headers (pch)
+En aquest projecte no utilitzo pch. En cas que s'hagin creat per defecte durant la creació inicial del projecte elimino pch.h, pch.cpp i framework.h de la solució i després els elimino del disc. Des de Project/Properties/C++/Precompiled headers al camp _Precompiled Header_ seleccio l'opció _Not Using Precompiled Headers_. Finalment comprovo que cap arxiu intenta incloure pch.h.
 
+## 8: Declarar directoris d'inclusió addicional (opcional)
+Opcionalment es poden declarar els directoris root/include i root/src com a directoris d'inclusió addicional per simplificar les rutes d'inclusió. En aquest projecte no ho aplico per a que es vegi clarament d'on s'inclou cada arxiu.
 
+## 9: Compilació del projecte
+Executar la compilació del projecte.
+
+## 10: Testar el projecte
+Per testar el projecte creo un nou projecte dins la mateixa solució (serà el projecte OpaqueTest)
 
 
