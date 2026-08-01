@@ -59,6 +59,8 @@ Opcionalment es poden declarar els directoris root/include i root/src com a dire
 Executar la compilació del projecte.
 
 ## 10: Testar el projecte
-Per testar el projecte creo un nou projecte dins la mateixa solució (serà el projecte OpaqueTest)
+Per testar el projecte creo un nou projecte dins la mateixa solució (serà el projecte OpaqueTest). Per a que el test pugui enllaçar la dll del projecte cal accedir a Project/Properties/C++/General/Additional include directories i afegir la ruta al directori arrel/include. Després cal accedir al Project/Properties/Linker/General/Additional include libraries i afegir la ruta al directori de sortida (*.dll i *.lib) del projecte que es vol incloure; després cal indicar la llibreria a linkar, des de Project/Properties/Linker/Input al camp _Additional dependencies_ afegir el nom de l'arxiu de la llibreria exportada Opaque.lib
 
+## 11: Incloure instància d'Opaque al test
+Incloure la llibreria exportada Opaque.h i utilitzar el handler per accedir a l'api exportada.
 
