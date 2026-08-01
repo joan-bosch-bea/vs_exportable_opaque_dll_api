@@ -33,14 +33,20 @@ Els projectes de DLL exportables amb api opaca necessiten un wrapper per exporta
 - arrel/src/api/Opaque_c_api.cpp (mètodes auxiliars del wrapper)
 - arrel/src/core/Opaque.cpp (llibreria a exportar)
 - arrel/src/core/Opaque.h (llibreria a exportar)
-- arrel/src/pch/pch.h
-- arrel/src/pch/pch.cpp
-- arrel/src/pch/framework.h
 
 ## 5: Afegir arxius a la solució
 Un cop creats l'arbre de directoris i els arxius físics cal afegir aquests arxius a la solució. Si per defecte s'han afegit a la solució pch i framework i se n'ha modificat (Tal com he fet en aquest projecte), caldrà eliminar-los de la solució i tornar-los a afegir:
 
-<img width="323" height="246" alt="captura" src="https://github.com/user-attachments/assets/b26db9a0-0907-46a0-b61a-68669b4ccfd1" />
+<p align="center" width="100%"><img width="323" height="246" alt="captura" src="https://github.com/user-attachments/assets/b26db9a0-0907-46a0-b61a-68669b4ccfd1" /></p>
+
+## 6: Declarar macro d'exportació
+EL precompilador de C++ ha de conèixer la macro d'exportació del projecte, per tant obro Project/Properties/C++/Preprocessor/Preprocessor Dfinitions i hi afegeixo la macro OPAQUELIB_EXPORTS que és la que he utilitzat al projecte:
+
+<p align="center" width="100%"><img width="800" height="546" alt="captura" src="https://github.com/user-attachments/assets/25569fc8-716d-41cc-b02b-689a42f92e88" /></p>
+
+## 7 Configurar els precompiled headers (pch)
+En aquest projecte no utilitzo pch. En cas que s'hagin creat per defecte durant la creació inicial del projecte elimino pch.h, pch.cpp i framework.h de la solució i després els elimino del disc. Des de Project/Properties/C++/Precompiled headers al camp __Precompiled Header__ seleccio l'opció __Not Using Precompiled Headers__. FInalment comprovo que cap arxiu intenta incloure pch.h.
+
 
 
 
