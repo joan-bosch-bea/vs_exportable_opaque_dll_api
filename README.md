@@ -10,6 +10,7 @@ Obrir Visual Studio, seleccionar la creació d'un projecte Dinamic-Link Library 
 
 <img width="1013" height="674" alt="captura" src="https://github.com/user-attachments/assets/b4ac6250-b7d6-4554-9b48-931794973c60" />
 
+
 <img width="1013" height="674" alt="captura" src="https://github.com/user-attachments/assets/783ea31e-8a5e-4b20-a93d-a09d7f84d5dc" />
 
 ## 2: Estructurar el projecte
@@ -27,8 +28,19 @@ Des de l'explorador d'arxius o des de la vista **Folder view** cal crear els dir
 ## 4: Crear els arxius basics
 Els projectes de DLL exportables amb api opaca necessiten un wrapper per exportar els components de forma compatible. Aquests arxius base son:
 
-- arrel/include/Opaque.h és la macro d'exportació estàndar
-- arrel/include/Opaque.hpp és la capçalera del wrapper
-- arrel/src/api/Opaque_c_api.cpp
+- arrel/include/Opaque.h (macro d'exportació estàndar)
+- arrel/include/Opaque.hpp (capçalera del wrapper)
+- arrel/src/api/Opaque_c_api.cpp (mètodes auxiliars del wrapper)
+- arrel/src/core/Opaque.cpp (llibreria a exportar)
+- arrel/src/core/Opaque.h (llibreria a exportar)
+- arrel/src/pch/pch.h
+- arrel/src/pch/pch.cpp
+- arrel/src/pch/framework.h
+
+## 5: Afegir arxius a la solució
+Un cop creats l'arbre de directoris i els arxius físics cal afegir aquests arxius a la solució. Si per defecte s'han afegit a la solució pch i framework i se n'ha modificat (Tal com he fet en aquest projecte), caldrà eliminar-los de la solució i tornar-los a afegir:
+
+<img width="323" height="246" alt="captura" src="https://github.com/user-attachments/assets/b26db9a0-0907-46a0-b61a-68669b4ccfd1" />
+
 
 
