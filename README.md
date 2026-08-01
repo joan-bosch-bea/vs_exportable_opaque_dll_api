@@ -6,9 +6,9 @@ En aquest document pretenc descriure els passos per crear una DLL amb API export
 Aquí posaré una petita descripció del que vol dir API exportable opaca i la millora que aporta els fets de ser exportable i opaca.
 
 * Compatibilitat binària (ABI): la representació de les classes C++ pot variar entre compiladors i versions
-* * Encapsulació: els usuaris no coneixen ni depenen de la implementació interna
-* * Compatibilitat entre llenguatges: una API C és fàcil d'utilitzar des de C, C#, Python(ctypes), Rust, etc...
-* * Evolució de la biblioteca: actualització / modificació de la llibreria privada sense canviar la interfície pública
+* Encapsulació: els usuaris no coneixen ni depenen de la implementació interna
+* Compatibilitat entre llenguatges: una API C és fàcil d'utilitzar des de C, C#, Python(ctypes), Rust, etc...
+* Evolució de la biblioteca: actualització / modificació de la llibreria privada sense canviar la interfície pública
 
 ## 1: Creació del projecte
 Obrir Visual Studio, seleccionar la creació d'un projecte Dinamic-Link Library (DLL) en C++ per a Windows, indicar el nom del projecte i crear:
