@@ -102,12 +102,12 @@ int Opaque::suma(int a, int b) {
 ```
 
 Després declaro la signatura de la funció exportada al wrapper:
-´´´
+```
 //arrel/include/Opaque.hpp
 int suma(int a, int b) {
   return Opaque_Suma(handle, a, b); 
 }
-´´´
+```
 
 Amb la signatura declarada ja puc afegir la funció d'intercanvi:
 ```
@@ -122,7 +122,7 @@ I finalment ja puc declarar la crida a la capçalera exportada, la que cridarà 
 //arrel/include/Opaque.h
 OPAQUELIB_API int Opaque_Suma(OpaqueHandle *, int, int);
 ```
-Des del test ja puc cridar la funció suma:
+Des del test ja puc accedir a la funció suma:
 ```
 int a = 123;
 int b = 456;
