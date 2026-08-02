@@ -62,5 +62,76 @@ Executar la compilació del projecte.
 Per testar el projecte creo un nou projecte dins la mateixa solució (serà el projecte OpaqueTest). Per a que el test pugui enllaçar la dll del projecte cal accedir a Project/Properties/C++/General/Additional include directories i afegir la ruta al directori arrel/include. Després cal accedir al Project/Properties/Linker/General/Additional include libraries i afegir la ruta al directori de sortida (*.dll i *.lib) del projecte que es vol incloure; després cal indicar la llibreria a linkar, des de Project/Properties/Linker/Input al camp _Additional dependencies_ afegir el nom de l'arxiu de la llibreria exportada Opaque.lib
 
 ## 11: Incloure instància d'Opaque al test
-Incloure la llibreria exportada Opaque.h i utilitzar el handler per accedir a l'api exportada.
+Incloure la llibreria exportada Opaque.h i utilitzar el handler per accedir a l'api exportada:
+```
+#include "Opaque.h"
 
+int main() {
+	OpaqueHandle *hOpaque = Opaque_Create();
+	Opaque_Destroy(hOpaque);
+}
+```
+
+## 12: Exportar mètodes de la classe del projecte
+Per fer una exportació compatible cal que els valors d'intercanvi siguin de tipus estàndar. Dins la classe del projecte declaro un mètode que accepta dos enters i retorna la seva suma:
+
+```
+//Opaque.h
+#include <stdio.h>
+
+class Opaque {
+public:
+    Opaque();
+    int suma(int , int );
+
+private:
+};
+```
+
+```
+//Opaque.cpp
+#include "Opaque.h"
+
+Opaque::Opaque() {
+	printf("Hola des de Opaque");
+}
+
+int Opaque::suma(int a, int b) {
+	return a + b;
+}
+```
+
+Després declaro la signatura de la funció exportada al wrapper:
+´´´
+//arrel/include/Opaque.hpp
+int suma(int a, int b) {
+  return Opaque_Suma(handle, a, b); 
+}
+´´´
+
+Amb la signatura declarada ja puc afegir la funció d'intercanvi:
+```
+//arrel/src/api/Opaque_c_api.cpp
+OPAQUELIB_API int Opaque_Suma(OpaqueHandle *h, int a, int b) {
+    return (h)? h->instance.suma(a, b) : 0;
+}
+```
+
+I finalment ja puc declarar la crida a la capçalera exportada, la que cridarà el client de la dll:
+```
+//arrel/include/Opaque.h
+OPAQUELIB_API int Opaque_Suma(OpaqueHandle *, int, int);
+```
+Des del test ja puc cridar la funció suma:
+```
+int a = 123;
+int b = 456;
+int resultat;
+
+OpaqueHandle *hOpaque = Opaque_Create();
+
+resultat = Opaque_Suma(hOpaque, a, b);
+printf("%d + %d = %d", a, b, resultat);
+
+Opaque_Destroy(hOpaque);
+```
