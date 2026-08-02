@@ -10,6 +10,12 @@ Aquí posaré una petita descripció del que vol dir "exportar DLL amb API opaca
 * Compatibilitat entre llenguatges: una API C és fàcil d'utilitzar des de C, C#, Python(ctypes), Rust, etc...
 * Evolució de la biblioteca: actualització / modificació de la llibreria privada sense canviar la interfície pública
 
+## Exporting a DLL using an Opaque C API in Visual Studio
+
+* This repository is documented in Catalan
+* The source code, identifiers and public API are written in English
+* Automatic translation tools should provide a good reading experience for non-Catalan speakers
+
 ## 1-. Creació del projecte
 Obrir Visual Studio, seleccionar la creació d'un projecte Dinamic-Link Library (DLL) en C++ per a Windows, indicar el nom del projecte i crear:
 
