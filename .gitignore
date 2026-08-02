@@ -1,0 +1,16 @@
+# Visual Studio
+.vs/
+
+# .NET
+bin/
+obj/
+
+# C++
+x64/
+Debug/
+Release/
+
+*.user
+*.suo
+*.VC.db
+*.VC.opendb
