@@ -1,9 +1,9 @@
-# Creació d'una DLL amb API exportable opaca en Visual Studio
+# Exportació d'una DLL amb API opaca en Visual Studio
 
-En aquest document pretenc descriure els passos per crear una DLL amb API exportable opaca en Visual Studio. El projecte estarà fet en C++ i constarà d'una única classe amb un únic mètode.
+En aquest document pretenc descriure els passos per exportar una DLL amb API opaca en Visual Studio. El projecte estarà fet en C++ i constarà d'una única classe amb un únic mètode.
 
 ## Descripció del projecte
-Aquí posaré una petita descripció del que vol dir API exportable opaca i la millora que aporta els fets de ser exportable i opaca.
+Aquí posaré una petita descripció del que vol dir "exportar DLL amb API opaca" i la millora que aporta els fets de ser exportable i opaca.
 
 * Compatibilitat binària (ABI): la representació de les classes C++ pot variar entre compiladors i versions
 * Encapsulació: els usuaris no coneixen ni depenen de la implementació interna
