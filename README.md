@@ -3,7 +3,14 @@
 En aquest document pretenc descriure els passos per exportar una DLL amb API opaca en Visual Studio. Per simplificar l'exemple, el projecte implementa una única classe amb un únic mètode funcional, centrant l'atenció en l'arquitectura d'exportació de la DLL i no en la complexitat de la implementació.
 
 ## Descripció del projecte
-Aquí posaré una petita descripció del que vol dir "exportar DLL amb API opaca" i la millora que aporta els fets de ser exportable i opaca.
+Aquest projecte mostra com crear una DLL amb una API pública compatible amb C i amb una implementació interna opaca. Aquest model permet exposar una interfície senzilla i estable, ocultant al consumidor els detalls de la implementació interna de la biblioteca.
+
+### Que vol dir *DLL exportable a C*?
+Una DLL exportable a C és una biblioteca dinàmica que exposa una interfície basada en l'ABI de C. Això significa que les funcions que formen part de la interfície pública utilitzen tipus i convencions compatibles amb C, evitant dependre de mecanismes propis de C++ com les classes, la sobrecàrrega de funcions o la name mangling específica d'un compilador.
+
+Això és especialment útil quan la biblioteca ha de ser utilitzada des de diferents llenguatges o entorns. Una API basada en C pot ser consumida des de C, C++, C#, Rust, Python, Golang i d'altres.
+
+Cal destacar que l'implementació interna de la DLL exportable a C no ha de ser necessàriament C. En aquest projecte l'implemento en C++, però tinc en compte que la part exposada sigui totalment compatible amb C.
 
 * Compatibilitat binària (ABI): la representació de les classes C++ pot variar entre compiladors i versions
 * Encapsulació: els usuaris no coneixen ni depenen de la implementació interna
