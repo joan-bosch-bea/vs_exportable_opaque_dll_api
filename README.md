@@ -31,7 +31,7 @@ Combinar una API basada en C amb una implementació opaca aporta diversos avanta
 ### Resolució de problemes diferents
 Cal notar que 'exportació a C' i 'API opaca' resol problemes diferents: C aporta principalment una interfície/ABI més interoperable, mentre que l'opacitat aporta encapsulació i independència respecte de la implementació. Per tant la combinació de les dues solucions és el que fa el projecte potent i interessant.
 
-## Exporting a DLL using an Opaque C API in Visual Studio
+## Other languages: Exporting a DLL using an Opaque C API in Visual Studio
 
 * This repository is documented in Catalan
 * The source code, identifiers and public API are written in English
