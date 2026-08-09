@@ -6,16 +6,30 @@ En aquest document pretenc descriure els passos per exportar una DLL amb API opa
 Aquest projecte mostra com crear una DLL amb una API pública compatible amb C i amb una implementació interna opaca. Aquest model permet exposar una interfície senzilla i estable, ocultant al consumidor els detalls de la implementació interna de la biblioteca.
 
 ### Que vol dir *DLL exportable a C*?
-Una DLL exportable a C és una biblioteca dinàmica que exposa una interfície basada en l'ABI de C. Això significa que les funcions que formen part de la interfície pública utilitzen tipus i convencions compatibles amb C, evitant dependre de mecanismes propis de C++ com les classes, la sobrecàrrega de funcions o la name mangling específica d'un compilador.
+Una DLL exportable a C és una biblioteca dinàmica que exposa una interfície basada en l'ABI de C. Això significa que les funcions que formen part de la interfície pública utilitzen tipus i convencions compatibles amb C, evitant dependre de mecanismes propis de C++ com les classes o la sobrecàrrega de funcions (*name mangling*) específica d'un compilador.
 
 Això és especialment útil quan la biblioteca ha de ser utilitzada des de diferents llenguatges o entorns. Una API basada en C pot ser consumida des de C, C++, C#, Rust, Python, Golang i d'altres.
 
 Cal destacar que l'implementació interna de la DLL exportable a C no ha de ser necessàriament C. En aquest projecte l'implemento en C++, però tinc en compte que la part exposada sigui totalment compatible amb C.
 
+### Que vol dir *API opaca*?
+Una API opaca és aquella en què el consumidor de la biblioteca no coneix ni necessita conèixer la representació interna dels objectes o estructures que utilitza.
+
+En lloc d'exposar directament una estructura amb tots els seus camps, l'API pública pot treballar amb un identificador o un punter a una estructura incompleta (opaque handle). El consumidor només pot manipular aquest objecte mitjançant les funcions que proporciona la DLL.
+
+D'aquesta manera, la implementació interna queda separada de la interfície pública; referent a aquesta separació crec que el punt mes important és que la memòria utilitzada per la llibreria és gestionada únicament per la pròpia llibreria.
+
+### Avantatges del model
+Combinar una API basada en C amb una implementació opaca aporta diversos avantatges respecte a exposar directament una API C++ o una API on les estructures internes són públiques:
+
 * Compatibilitat binària (ABI): la representació de les classes C++ pot variar entre compiladors i versions
 * Encapsulació: els usuaris no coneixen ni depenen de la implementació interna
 * Compatibilitat entre llenguatges: una API C és fàcil d'utilitzar des de C, C#, Python(ctypes), Rust, etc...
 * Evolució de la biblioteca: actualització / modificació de la llibreria privada sense canviar la interfície pública
+* Menor acoblament: el programa que utilitza la DLL només depèn de les funcions i tipus que formen part de l'API pública, i no de les estructures o classes internes.
+
+### Resolució de problemes diferents
+Cal notar que 'exportació a C' i 'API opaca' resol problemes diferents: C aporta principalment una interfície/ABI més interoperable, mentre que l'opacitat aporta encapsulació i independència respecte de la implementació. Per tant la combinació de les dues solucions és el que fa el projecte potent i interessant.
 
 ## Exporting a DLL using an Opaque C API in Visual Studio
 
